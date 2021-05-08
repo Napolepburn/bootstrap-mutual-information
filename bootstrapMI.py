@@ -2,8 +2,8 @@ import numpy as np
 from scipy import stats
 import math
 
-#采用核密度估计的MI
-def join_possibility_density(A,B):#A,B为一维数组
+# MI estimation using kernel density
+def join_possibility_density(A,B):
 
 	len_A=len(A)
 	len_B=len(B)
@@ -13,9 +13,9 @@ def join_possibility_density(A,B):#A,B为一维数组
 	A_B=np.hstack((A,B))
 	values=A_B.T
 
-	#向量维数
 	d=2;N=len_A
-	#用于MI的高斯核宽
+	
+	# Gaussian core width
 	bandwidth=((4/(d+2))**(1/(d+4)))*(N**(-1/(d+4)))
 
 	kde=stats.gaussian_kde(values, bw_method=bandwidth)
@@ -37,9 +37,9 @@ def marginal_possibility_density(x):
 	kde=stats.gaussian_kde(values, bw_method=bandwidth)
 	density=kde(values)
 
-	return density#返回一个数组
+	return density
 
-def MI(A,B):#A为一维数组，B为一维序列（预测值）
+def MI(A,B):
 
 	assert len(A)==len(B)
 
